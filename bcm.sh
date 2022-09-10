@@ -15,7 +15,7 @@ unknown () {
 }
  
 input=$(lspci -nn -d 14e4:)
-var=$(echo "$input" | awk '{print $(NF - 2) $(NF-1) $NF }')
+var=$(echo "$input" | awk '{print $(NF - 2) $(NF - 1) $NF}')
 var=$(echo "$var" | sed 's/\[//')
 var=$(echo "$var" | sed 's/]//')
 var=$(echo "$var" | sed 's/(//')
