@@ -41,7 +41,7 @@ var=$(echo "${var//]/}")                            # replace ]
 var=$(echo "${var//(/}")                            # replace (
 var=$(echo "${var//)/}")                            # replace )
 
-echo "Your Wifi device: bcm [14e14:$token"
+echo $'\e[1;32m'Your Wifi device: bcm [14e14:$token$'\e[0m'
 case $var in
     1713)           question "b43";;
     4301)           question "b43";;
