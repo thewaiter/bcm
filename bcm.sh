@@ -1,4 +1,5 @@
 #!/bin/bash
+# bcm device driver finder script by Štefan Uram (the_waiter/bodhilinux)
  
 b43 () {
    sudo apt purge bcmwl-kernel-source
@@ -14,15 +15,15 @@ unknown () {
    echo 'Unidentified Wifi card. Please check Bodhi wiki!'
 }
  
-input=$(lspci -nn -d 14e4:)
-var=$(echo "$input" | awk -F"14e4:" '{print $2}')
+input=$(lspci -nn -d 14e4:) # exceutes command and incializes variable
+token=$(echo "$input" | awk -F"14e4:" '{print $2}') # find token
 
-var=$(echo "${var// /}")
-var=$(echo "${var//]/}")
-var=$(echo "${var//(/}")
-var=$(echo "${var//)/}")
+var=$(echo "${token// /}")                          # replace spaces
+var=$(echo "${var//]/}")                            # replace ]
+var=$(echo "${var//(/}")                            # replace (
+var=$(echo "${var//)/}")                            # replace )
 
-echo "$var"
+echo "Your Wifi device: bcm [14e14:$token"
 case $var in
     1713)           b43;;
     4301)           b43;;
@@ -67,6 +68,6 @@ case $var in
     43c3rev04)      b43;;
     4727)           bcmwl;;
     a962)           b43;;
-    *)                   unknown;;
+    *)              unknown;;
 esac
  
