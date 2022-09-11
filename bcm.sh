@@ -41,7 +41,14 @@ var=$(echo "${var//]/}")                            # replace ]
 var=$(echo "${var//(/}")                            # replace (
 var=$(echo "${var//)/}")                            # replace )
 
-echo $'\e[1;32m'Your Wifi device: bcm [14e14:$token$'\e[0m'
+if [ -z "$token" ]
+then
+  echo $'\e[1;31m'Your Wifi device is not Broadcom!$'\e[0m'
+  exit 0
+else
+  echo $'\e[1;32m'Your Wifi device: bcm [14e14:$token$'\e[0m'
+fi
+
 case $var in
     1713)           question "b43";;
     4301)           question "b43";;
