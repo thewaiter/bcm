@@ -33,7 +33,7 @@ unknown () {
    echo 'Unidentified Wifi card. Please check Bodhi wiki!'
 }
 
-input=$(lspci -nn -d 14e4:) # exceutes command and incializes variable
+input=$(lspci -nn -d 14e4:) # executes command and incializes variable
 token=$(echo "$input" | awk -F"14e4:" '{print $2}') # find token
 
 var=$(echo "${token// /}")                          # replace spaces
