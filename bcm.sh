@@ -1,9 +1,14 @@
 #!/bin/bash
-# bcm device driver finder script by Štefan Uram (the_waiter/bodhilinux)
+# bcm device driver finder and installer script by Štefan Uram (the_waiter/bodhilinux)
  
 b43 () {
    sudo apt purge bcmwl-kernel-source
    sudo apt install firmware-b43-installer && sudo apt install linux-firmware
+}
+
+b43legacy () {
+   sudo apt purge bcmwl-kernel-source
+   sudo apt install firmware-b43legacy-installer && sudo apt install linux-firmware
 }
  
 bcmwl () {
@@ -13,8 +18,9 @@ bcmwl () {
 
 installer () {
    case $1 in
-      b43)   b43;;
-      bcmwl) bcmwl;;
+      b43)         b43;;
+      b43legacy)   b43legacy;;
+      bcmwl)       bcmwl;;
    esac
 }
 
@@ -51,8 +57,8 @@ fi
 
 case $var in
     1713)           question "b43";;
-    4301)           question "b43";;
-    4306rev02)      question "b43";;
+    4301)           question "b43legacy";;
+    4306rev02)      question "b43legacy";;
     4306rev03)      question "b43";;
     4307)           question "b43";;
     4311)           question "b43";;
