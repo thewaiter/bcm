@@ -1,6 +1,22 @@
 #!/bin/bash
-# bcm device driver finder and installer script by Štefan Uram (the_waiter/bodhilinux)
- 
+#
+# Broadcom device driver finder and installer script
+# Copyright 2023 Štefan (the_waiter) Uram
+#
+# "bcm" is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 3 of the License, or (at
+# your option) any later version.
+#
+# "bcm" is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with "set-background-bodhi"; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
 b43 () {
    sudo apt purge bcmwl-kernel-source
    sudo apt install firmware-b43-installer && sudo apt install linux-firmware
@@ -26,9 +42,9 @@ installer () {
 
 question () {
  while true; do
-    read -p "Do you wish to install suitable bcm driver [y/n]? " yn
+    read -r -p "Do you wish to install suitable bcm driver [y/n]? " yn
     case $yn in
-        [Yy]* ) installer $1; break;;
+        [Yy]* ) installer "$1"; break;;
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
@@ -42,17 +58,14 @@ unknown () {
 input=$(lspci -nn -d 14e4:) # executes command and incializes variable
 token=$(echo "$input" | awk -F"14e4:" '{print $2}') # find token
 
-var=$(echo "${token// /}")                          # replace spaces
-var=$(echo "${var//]/}")                            # replace ]
-var=$(echo "${var//(/}")                            # replace (
-var=$(echo "${var//)/}")                            # replace )
+var=$(echo "$token" | sed 's/[][()]//g' | sed 's/ //g')
 
 if [ -z "$token" ]
 then
   echo $'\e[1;31m'Your Wifi device is not Broadcom!$'\e[0m'
   exit 0
 else
-  echo $'\e[1;32m'Your Wifi device: bcm [14e14:$token$'\e[0m'
+  echo $'\e[1;32m'Your Wifi device: bcm [14e14:"$token"$'\e[0m'
 fi
 
 case $var in
