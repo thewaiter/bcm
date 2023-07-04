@@ -65,7 +65,7 @@ then
   echo $'\e[1;31m'Your Wifi device is not Broadcom!$'\e[0m'
   exit 0
 else
-  echo $'\e[1;32m'Your Wifi device: bcm [14e14:"$token"$'\e[0m'
+  echo $'\e[1;32m'Your Wifi device: bcm [14e4:"$token"$'\e[0m'
 fi
 
 case $var in
