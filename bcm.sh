@@ -18,16 +18,19 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 b43 () {
+   sudo apt update
    sudo apt purge bcmwl-kernel-source
    sudo apt install firmware-b43-installer && sudo apt install linux-firmware
 }
 
 b43legacy () {
+   sudo apt update
    sudo apt purge bcmwl-kernel-source
    sudo apt install firmware-b43legacy-installer && sudo apt install linux-firmware
 }
  
 bcmwl () {
+   sudo apt update
    sudo apt purge firmware-b43-installer
    sudo apt install bcmwl-kernel-source
 }
