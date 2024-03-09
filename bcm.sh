@@ -15,7 +15,6 @@
 #
 
 b43 () {
-   sudo apt update
    if [ "$platform" == "Ubuntu" ]; then
         sudo apt purge bcmwl-kernel-source
    fi
@@ -26,7 +25,6 @@ b43 () {
 }
 
 b43legacy () {
-   sudo apt update
    if [ "$platform" == "Ubuntu" ]; then
         sudo apt purge bcmwl-kernel-source
    fi
@@ -37,7 +35,6 @@ b43legacy () {
 }
  
 bcmwl () {
-   sudo apt update
    sudo apt purge firmware-b43-installer
    sudo apt purge firmware-b43legacy-installer
    if [ "$platform" == "Ubuntu" ]; then
@@ -50,6 +47,7 @@ bcmwl () {
 }
 
 installer () {
+   sudo apt update
    case $1 in
       b43)         b43;;
       b43legacy)   b43legacy;;
