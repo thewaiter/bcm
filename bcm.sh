@@ -16,33 +16,51 @@
 
 b43 () {
    if [ "$platform" == "Ubuntu" ]; then
-        sudo apt purge bcmwl-kernel-source
+       if dpkg -s bcmwl-kernel-source  >/dev/null 2>&1; then
+          sudo apt purge bcmwl-kernel-source
+       fi
    fi
    if [ "$platform" == "Debian" ]; then
-       sudo apt purge broadcom-sta-dkms
+       if dpkg -s broadcom-sta-dkms  >/dev/null 2>&1; then
+          sudo apt purge broadcom-sta-dkms
+       fi
    fi
    sudo apt install firmware-b43-installer
 }
 
 b43legacy () {
    if [ "$platform" == "Ubuntu" ]; then
-        sudo apt purge bcmwl-kernel-source
+       if dpkg -s bcmwl-kernel-source  >/dev/null 2>&1; then
+          sudo apt purge bcmwl-kernel-source
+       fi
    fi
    if [ "$platform" == "Debian" ]; then
-       sudo apt purge broadcom-sta-dkms
+       if dpkg -s broadcom-sta-dkms  >/dev/null 2>&1; then
+          sudo apt purge broadcom-sta-dkms
+       fi
    fi
    sudo apt install firmware-b43legacy-installer
 }
  
 bcmwl () {
-   sudo apt purge firmware-b43-installer
-   sudo apt purge firmware-b43legacy-installer
+   if dpkg -s firmware-b43-installer >/dev/null 2>&1; then
+     sudo apt-get purge firmware-b43-installer
+   fi
+   if dpkg -s firmware-b43legacy-installer >/dev/null 2>&1; then
+     sudo apt-get purge firmware-b43legacy-installer
+   fi
    if [ "$platform" == "Ubuntu" ]; then
-        sudo apt install bcmwl-kernel-source
+       if ! dpkg -s bcmwl-kernel-source  >/dev/null 2>&1; then
+          sudo apt install bcmwl-kernel-source
+       fi
    fi
    if [ "$platform" == "Debian" ]; then
-       sudo apt install firmware-iwlwifi
-       sudo apt install broadcom-sta-dkms
+       if ! dpkg -s firmware-iwlwifi  >/dev/null 2>&1; then
+          sudo apt install firmware-iwlwifi
+       fi
+       if ! dpkg -s broadcom-sta-dkms  >/dev/null 2>&1; then
+          sudo apt broadcom-sta-dkms
+       fi
    fi
 }
 
