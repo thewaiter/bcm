@@ -17,22 +17,41 @@
 # along with "set-background-bodhi"; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+
+
 b43 () {
    sudo apt update
-   sudo apt purge bcmwl-kernel-source
-   sudo apt install firmware-b43-installer && sudo apt install linux-firmware
+   if [ "$platform" == "Ubuntu" ]; then
+        sudo apt purge bcmwl-kernel-source
+   fi 
+   if [ "$platform" == "Debian" ]; then
+       sudo apt purge broadcom-sta-dkms
+   fi
+   sudo apt install firmware-b43-installer
 }
 
 b43legacy () {
    sudo apt update
-   sudo apt purge bcmwl-kernel-source
-   sudo apt install firmware-b43legacy-installer && sudo apt install linux-firmware
+   if [ "$platform" == "Ubuntu" ]; then
+        sudo apt purge bcmwl-kernel-source
+   fi 
+   if [ "$platform" == "Debian" ]; then
+       sudo apt purge broadcom-sta-dkms
+   fi
+   sudo apt install firmware-b43legacy-installer
 }
  
 bcmwl () {
    sudo apt update
    sudo apt purge firmware-b43-installer
-   sudo apt install bcmwl-kernel-source
+   sudo apt purge firmware-b43legacy-installer
+   if [ "$platform" == "Ubuntu" ]; then
+        sudo apt install bcmwl-kernel-source
+   fi 
+   if [ "$platform" == "Debian" ]; then
+       sudo apt install firmware-iwlwifi
+       sudo apt install broadcom-sta-dkms
+   fi
 }
 
 installer () {
@@ -58,9 +77,11 @@ unknown () {
    echo 'Unidentified Wifi card. Please check Bodhi wiki!'
 }
 
+platform=$(lsb_release -si | awk -F"\t" '{print $1}')
+echo $'Your platform: \e[1;31m'$platform$'\e[0m'
+
 input=$(lspci -nn -d 14e4:) # executes command and incializes variable
 token=$(echo "$input" | awk -F"14e4:" '{print $2}') # find token
-
 var=$(echo "$token" | sed 's/[][()]//g' | sed 's/ //g')
 
 if [ -z "$token" ]
