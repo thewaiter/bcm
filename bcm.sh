@@ -55,9 +55,6 @@ bcmwl () {
        fi
    fi
    if [ "$platform" == "Debian" ]; then
-       if ! dpkg -s firmware-iwlwifi  >/dev/null 2>&1; then
-          sudo apt install firmware-iwlwifi
-       fi
        if ! dpkg -s broadcom-sta-dkms  >/dev/null 2>&1; then
           sudo apt broadcom-sta-dkms
        fi
