@@ -101,6 +101,7 @@ else
 fi
 
 case $var in
+    16bc)           question "b43";;
     1713)           question "b43";;
     4301)           question "b43legacy";;
     4306rev02)      question "b43legacy";;
@@ -118,6 +119,7 @@ case $var in
     4320rev02)      question "b43";;
     4320rev03)      question "b43";;
     4321)           question "b43";;
+    4322rev01)      question "b43";;
     4324)           question "b43";;
     4325)           question "b43";;
     4328)           question "b43";;
@@ -125,11 +127,13 @@ case $var in
     4329)           question "bcmwl";;
     432a)           question "bcmwl";;
     432b)           question "bcmwl";;
+    432brev01)      question "bcmwl";;
     432c)           question "bcmwl";;
     432d)           question "bcmwl";;
     4331)           question "b43";;
     4335)           question "b43";;
     4350)           question "b43";;
+    4353)           question "b43";;
     4353rev01)      question "b43";;
     4358)           question "bcmwl";;
     4359)           question "b43";;
