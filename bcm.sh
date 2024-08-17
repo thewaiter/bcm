@@ -90,6 +90,10 @@ echo $'Your platform: \e[1;31m'$platform$'\e[0m'
 
 input=$(lspci -nn -d 14e4:) # executes command and incializes variable
 token=$(echo "$input" | awk -F"14e4:" '{print $2}') # find token
+# exclude 1693 (rev 02) card from the list (it is an ethernet bcm card
+# Use | for next excluded card
+token=$(echo "$token" | awk '!/^(1693\] \(rev 02)/')
+
 var=$(echo "$token" | sed 's/[][()]//g' | sed 's/ //g')
 
 if [ -z "$token" ]
